@@ -69,19 +69,24 @@ export const getOrderWithAllProductsByOrderId = async (
         "order".id,
         "order".customer_id,
         "order".created_at,
-        order_product.id AS order_product_id,
-        order_product.product_id,
-        order_product.quantity,
-        product.name AS product_name,
-        product.price AS product_price,
-        product.available_stock AS product_available_stock
+        (
+          SELECT json_agg(
+            json_build_object( 
+              'order_product_id', order_product.id,
+              'product_id', order_product.product_id,
+              'quantity', order_product.quantity,
+              'name', product.name,
+              'price', product.price,
+              'available_stock', product.available_stock
+            )
+            ORDER BY product.name
+          )
+          FROM order_product
+          JOIN product ON order_product.product_id = product.id
+          WHERE order_product.order_id = "order".id
+        ) AS products
       FROM "order"
-      JOIN order_product ON "order".id = order_product.order_id
-      JOIN product ON order_product.product_id = product.id
       WHERE "order".id = $1
-      GROUP BY "order".id, order_product.id, product.id
-      ORDER BY order_product.id
-
     `,
       [order_id]
     );
