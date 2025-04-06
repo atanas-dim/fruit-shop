@@ -1,32 +1,6 @@
 import { pool } from "../db";
 
-// TODO Update funcs names with this pattern
-// Naming Conventions:
-// Model Functions (Reflect Database operations):
-
-// createProduct
-
-// readProduct
-
-// readAllProducts
-
-// updateProduct
-
-// deleteProduct
-
-// Controller Functions (Reflect HTTP request handlers):
-
-// postProduct
-
-// getProduct
-
-// getProducts
-
-// putProduct
-
-// removeProduct
-
-export const getAllProducts = async () => {
+export const readAllProducts = async () => {
   try {
     const res = await pool.query("SELECT * FROM product");
     return res.rows;

@@ -1,6 +1,6 @@
 import { pool } from "../db";
 
-export const getAllOrders = async () => {
+export const readAllOrders = async () => {
   try {
     const res = await pool.query("SELECT * FROM orders");
     return res.rows;
@@ -24,7 +24,7 @@ export const createOrder = async (customer_id: Order["customer_id"]) => {
   }
 };
 
-export const getAllOrderProducts = async (
+export const readAllOrderProducts = async (
   order_id: OrderProduct["order_id"]
 ) => {
   try {
@@ -59,7 +59,7 @@ export const createOrderProduct = async (
   }
 };
 
-export const getOrderWithAllProductsByOrderId = async (
+export const readOrderWithProductsByOrderId = async (
   order_id: OrderProduct["order_id"]
 ) => {
   try {

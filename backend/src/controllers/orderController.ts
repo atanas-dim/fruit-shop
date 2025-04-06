@@ -2,14 +2,14 @@ import { Request, Response } from "express";
 import {
   createOrder,
   createOrderProduct,
-  getAllOrderProducts,
-  getAllOrders,
-  getOrderWithAllProductsByOrderId,
+  readAllOrderProducts,
+  readAllOrders,
+  readOrderWithProductsByOrderId,
 } from "../models/orderModel";
 
 export const getOrders = async (_req: Request, res: Response) => {
   try {
-    const orders = await getAllOrders();
+    const orders = await readAllOrders();
     res.json(orders);
   } catch (error) {
     console.error(error);
@@ -17,7 +17,7 @@ export const getOrders = async (_req: Request, res: Response) => {
   }
 };
 
-export const addOrder = async (req: Request, res: Response) => {
+export const postOrder = async (req: Request, res: Response) => {
   const { customer_id } = req.body;
 
   if (!customer_id) {
@@ -50,7 +50,7 @@ export const getOrderProducts = async (req: Request, res: Response) => {
   }
 
   try {
-    const orderProducts = await getAllOrderProducts(Number(order_id));
+    const orderProducts = await readAllOrderProducts(Number(order_id));
     res.json(orderProducts);
   } catch (error) {
     console.error(error);
@@ -58,7 +58,7 @@ export const getOrderProducts = async (req: Request, res: Response) => {
   }
 };
 
-export const addOrderProduct = async (req: Request, res: Response) => {
+export const postOrderProduct = async (req: Request, res: Response) => {
   try {
     const { order_id, product_id, quantity } = req.body;
     if (!order_id || !product_id || !quantity) {
@@ -83,7 +83,6 @@ export const addOrderProduct = async (req: Request, res: Response) => {
   }
 };
 
-//TODO Improve naming pattern/convention of controller vs model functions to avoid confusion from similarity of names
 export const getOrderWithProductsByOrderId = async (
   req: Request,
   res: Response
@@ -96,7 +95,7 @@ export const getOrderWithProductsByOrderId = async (
     }
     // TODO Add additional validation for order_id
 
-    const orderWithProducts = await getOrderWithAllProductsByOrderId(
+    const orderWithProducts = await readOrderWithProductsByOrderId(
       Number(order_id)
     );
     res.json(orderWithProducts);

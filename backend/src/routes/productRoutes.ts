@@ -1,7 +1,7 @@
 import express from "express";
 import {
-  addMultipleProducts,
-  addProduct,
+  postMultipleProducts,
+  postProduct,
   getProducts,
 } from "../controllers/productController";
 
@@ -9,8 +9,9 @@ const router = express.Router();
 
 router.get("/", getProducts);
 
-router.post("/", addProduct);
+// TODO Merge this with the /bulk route. Post single products as an array of one
+router.post("/", postProduct);
 
-router.post("/bulk", addMultipleProducts);
+router.post("/bulk", postMultipleProducts);
 
 export default router;

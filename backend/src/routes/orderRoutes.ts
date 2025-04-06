@@ -1,7 +1,7 @@
 import express from "express";
 import {
-  addOrder,
-  addOrderProduct,
+  postOrder,
+  postOrderProduct,
   getOrderProducts,
   getOrders,
   getOrderWithProductsByOrderId,
@@ -11,14 +11,13 @@ const router = express.Router();
 
 router.get("/", getOrders);
 
-router.post("/", addOrder);
+router.post("/", postOrder);
 
 router.get("/products", getOrderProducts);
 
-router.post("/products", addOrderProduct);
+// TODO Update this to post multiple products as an array in req.body. Post single ones as an array of one
+router.post("/products", postOrderProduct);
 
 router.get("/products/:order_id", getOrderWithProductsByOrderId);
-
-// router.get("/products/:product_id", getOrderProduct);
 
 export default router;

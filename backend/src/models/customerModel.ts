@@ -1,6 +1,6 @@
 import { pool } from "../db";
 
-export const getAllCustomers = async () => {
+export const readAllCustomers = async () => {
   try {
     const res = await pool.query("SELECT * FROM customer");
     return res.rows;

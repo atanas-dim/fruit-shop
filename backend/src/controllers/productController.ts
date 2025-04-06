@@ -2,12 +2,12 @@ import { Request, Response } from "express";
 import {
   createMultipleProducts,
   createProduct,
-  getAllProducts,
+  readAllProducts,
 } from "../models/productModel";
 
 export const getProducts = async (_req: Request, res: Response) => {
   try {
-    const products = await getAllProducts();
+    const products = await readAllProducts();
     res.json(products);
   } catch (error) {
     console.error(error);
@@ -15,7 +15,7 @@ export const getProducts = async (_req: Request, res: Response) => {
   }
 };
 
-export const addProduct = async (req: Request, res: Response) => {
+export const postProduct = async (req: Request, res: Response) => {
   const { name, price, available_stock } = req.body;
 
   if (!name || !price || !available_stock) {
@@ -32,7 +32,7 @@ export const addProduct = async (req: Request, res: Response) => {
   }
 };
 
-export const addMultipleProducts = async (req: Request, res: Response) => {
+export const postMultipleProducts = async (req: Request, res: Response) => {
   const products = req.body;
 
   if (!Array.isArray(products) || products.length === 0) {

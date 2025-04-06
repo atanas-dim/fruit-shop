@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { createCustomer, getAllCustomers } from "../models/customerModel";
+import { createCustomer, readAllCustomers } from "../models/customerModel";
 
 export const getCustomers = async (_req: Request, res: Response) => {
   try {
-    const customers = await getAllCustomers();
+    const customers = await readAllCustomers();
     res.json(customers);
   } catch (error) {
     console.error(error);
@@ -11,7 +11,7 @@ export const getCustomers = async (_req: Request, res: Response) => {
   }
 };
 
-export const addCustomer = async (req: Request, res: Response) => {
+export const postCustomer = async (req: Request, res: Response) => {
   const { first_name, last_name, email } = req.body;
 
   if (!first_name || !last_name || !email) {
