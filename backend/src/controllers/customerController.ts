@@ -3,7 +3,7 @@ import { createCustomer, getAllCustomers } from "../models/customerModel";
 
 export const getCustomers = async (_req: Request, res: Response) => {
   try {
-    const customers = await getAllCustomers(); // Assuming getAllCustomers() is async
+    const customers = await getAllCustomers();
     res.json(customers);
   } catch (error) {
     console.error(error);

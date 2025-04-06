@@ -11,3 +11,9 @@ type Product = {
   price: number;
   available_stock: number;
 };
+
+type Order = {
+  id: number;
+  customer_id: number;
+  created_at: string;
+};
